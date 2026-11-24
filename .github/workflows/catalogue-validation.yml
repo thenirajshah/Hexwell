@@ -1,0 +1,34 @@
+name: Catalogue validation
+on:
+  push:
+    branches: [upgrade/catalogue-ui-seo]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build:pages
+        env:
+          BASE_PATH: /Hexwell/
+      - name: Verify static output
+        run: |
+          test -s gh-pages/index.html
+          test -s gh-pages/404.html
+          test -s gh-pages/sitemap.xml
+          test -s gh-pages/robots.txt
+          node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("src/data/catalog.json")).parts; for(const x of p) for(const a of [x.photo,x.diagram]) if(!fs.existsSync("gh-pages/fastener/"+a+".png")) throw Error(a); if((fs.readFileSync("gh-pages/sitemap.xml","utf8").match(/<loc>/g)||[]).length!==p.length+1) throw Error("Sitemap count mismatch");'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: catalogue-preview
+          path: gh-pages
