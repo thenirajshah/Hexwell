@@ -30,6 +30,7 @@ export const Route = createFileRoute("/")({
     pid: typeof search.pid === "string" ? search.pid : "",
     nom: typeof search.nom === "string" ? search.nom : "",
   }),
+  head: () => ({ links: [{ rel: "canonical", href: "https://thenirajshah.github.io/Hexwell/" }] }),
   component: Home,
 });
 
