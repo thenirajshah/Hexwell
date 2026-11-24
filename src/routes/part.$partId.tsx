@@ -40,7 +40,7 @@ export const Route = createFileRoute("/part/$partId")({
   head: ({ params }) => {
     const meta = getPart(params.partId);
     return {
-      meta: [{ title: meta ? `${meta.name} · Hexwell` : "Hexwell" }],
+      meta: [{ title: meta ? `${meta.group} ${meta.code} — ${meta.name} Dimensions | Hexwell` : "Hexwell" }, ...(meta ? [{ name: "description", content: `Reference dimensions, nominal sizes and original engineering diagram for ${meta.group} ${meta.code} ${meta.name}.` }] : [])],
     };
   },
   pendingComponent: PartPending,
@@ -191,17 +191,17 @@ function PartBody({ meta, table }: { meta: PartMeta; table: TableData }) {
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <section className="panel p-4 sm:p-5">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-sm font-semibold tracking-wide text-spec-heading uppercase">Original diagram</h2>
+              <h2 className="text-lg font-semibold text-foreground">Original diagram</h2>
               <p className="text-sm text-muted-foreground">From the fastener book</p>
             </div>
             <div className="mt-3 grid items-center gap-3 sm:grid-cols-[7.5rem_minmax(0,1fr)]">
               <div className="flex items-center justify-center rounded-xl bg-white p-2">
-                <img src={publicUrl(`fastener/${meta.photo}.png`)} alt="" className="h-28 w-full object-contain" />
+                <img src={publicUrl(`fastener/${meta.photo}.png`)} alt={`${meta.name} fastener`} decoding="async" className="h-28 w-full object-contain" />
               </div>
               <div className="overflow-hidden rounded-xl bg-white p-2">
                 <img
                   src={publicUrl(`fastener/${meta.diagram}.png`)}
-                  alt={`${meta.name} dimension diagram`}
+                  alt={`${meta.name} dimension diagram`} decoding="async"
                   className="mx-auto max-h-96 w-full object-contain"
                 />
               </div>
@@ -210,7 +210,7 @@ function PartBody({ meta, table }: { meta: PartMeta; table: TableData }) {
           </section>
 
           <section className="panel flex flex-col p-4 sm:p-5">
-            <h2 className="text-sm font-medium">Read this size</h2>
+            <h2 className="text-lg font-semibold">Read this size</h2>
             <div role="radiogroup" aria-label="Display units" className="mt-3 flex w-full min-w-0 gap-1 rounded-xl border border-border bg-background p-1">
               {(
                 [
@@ -276,7 +276,7 @@ function PartBody({ meta, table }: { meta: PartMeta; table: TableData }) {
 
           {basis ? (
             <div className="mt-5">
-              <h2 className="text-sm font-semibold tracking-wide text-spec-heading uppercase">Technical specifications</h2>
+              <h2 className="text-xl font-bold tracking-tight text-foreground">Technical dimensions</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 <span className="tabular-nums">{sizes.length}</span> sizes
                 {lengths.length ? <span> · <span className="tabular-nums">{lengths.length}</span> lengths for this size</span> : null}
@@ -295,7 +295,7 @@ function PartBody({ meta, table }: { meta: PartMeta; table: TableData }) {
                           {key ? <span className="mr-2 font-medium text-foreground">{key}</span> : null}
                           {labelFor(column, meta.family)}
                         </dt>
-                        <dd className="mt-1 text-base font-semibold text-spec tabular-nums" title={formatted?.title}>
+                        <dd className="mt-1 text-lg font-semibold text-spec tabular-nums" title={formatted?.title}>
                           {formatted ? (
                             <>
                               {formatted.text}
