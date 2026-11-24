@@ -33,7 +33,10 @@ jobs:
           BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
         run: npm run build:pages
       - uses: actions/upload-pages-artifact@v3
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
         with:
           path: gh-pages
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
