@@ -40,6 +40,7 @@ export const Route = createFileRoute("/part/$partId")({
   head: ({ params }) => {
     const meta = getPart(params.partId);
     return {
+      links: meta ? [{ rel: "canonical", href: "https://thenirajshah.github.io/Hexwell/part/" + encodeURIComponent(meta.id) }] : [],
       meta: [{ title: meta ? `${meta.group} ${meta.code} — ${meta.name} Dimensions | Hexwell` : "Hexwell" }, ...(meta ? [{ name: "description", content: `Reference dimensions, nominal sizes and original engineering diagram for ${meta.group} ${meta.code} ${meta.name}.` }] : [])],
     };
   },
