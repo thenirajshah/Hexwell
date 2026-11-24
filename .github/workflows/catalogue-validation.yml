@@ -28,6 +28,14 @@ jobs:
           test -s gh-pages/sitemap.xml
           test -s gh-pages/robots.txt
           node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync("src/data/catalog.json")).parts; for(const x of p) for(const a of [x.photo,x.diagram]) if(!fs.existsSync("gh-pages/fastener/"+a+".png")) throw Error(a); if((fs.readFileSync("gh-pages/sitemap.xml","utf8").match(/<loc>/g)||[]).length!==p.length+1) throw Error("Sitemap count mismatch");'
+      - name: Browser smoke tests
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+          mkdir -p /tmp/hexwell-preview
+          ln -s "$PWD/gh-pages" /tmp/hexwell-preview/Hexwell
+          python3 -m http.server 4173 --directory /tmp/hexwell-preview > /tmp/hexwell-server.log 2>&1 &
+          node scripts/catalogue-browser-check.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: catalogue-preview
