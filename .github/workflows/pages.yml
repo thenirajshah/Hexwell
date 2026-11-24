@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - name: Static site
         env:
           # username.github.io is served at /. Every other repo is /<name>/.
