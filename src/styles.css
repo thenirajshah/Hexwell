@@ -1,27 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-display: ui-sans-serif, system-ui, sans-serif;
 
-  --color-background: #f6f5f2;
-  --color-foreground: #16181a;
-  --color-card: #fcfbf9;
-  --color-muted: #eceae6;
-  --color-muted-foreground: #4e5559;
-  --color-border: #e3e0da;
-  --color-primary: #1f4a5c;
+  --color-background: #f1f4f7;
+  --color-foreground: #142638;
+  --color-card: #ffffff;
+  --color-muted: #e5ebf1;
+  --color-muted-foreground: #526477;
+  --color-border: #d4dce4;
+  --color-primary: #245d88;
   --color-primary-foreground: #f4f7f8;
   --color-accent: #e6eef2;
-  --color-accent-foreground: #1f4a5c;
-  --color-ring: #1f4a5c;
+  --color-accent-foreground: #245d88;
+  --color-ring: #245d88;
   --color-secondary: #e7eef1;
-  --color-secondary-foreground: #1f4a5c;
+  --color-secondary-foreground: #245d88;
   --color-picked: #e5f6e8;
   --color-picked-foreground: #14532d;
   --color-spec: #1d4e89;
-  --color-spec-heading: #8f2d2d;
+  --color-spec-heading: #245d88;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -35,7 +34,7 @@
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
+  --radius-3xl: 0.5rem;
 }
 
 :root {
@@ -102,3 +101,12 @@
     transition: none;
   }
 }
+
+/* Catalogue accessibility and industrial visual system */
+:focus-visible { outline: 2px solid var(--color-ring); outline-offset: 3px; }
+main { min-width: 0; }
+h1, h2, h3 { overflow-wrap: anywhere; }
+img { max-width: 100%; }
+#content { scroll-margin-top: 5rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

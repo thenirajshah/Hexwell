@@ -9,7 +9,7 @@
  * User sites (username.github.io) use BASE_PATH=/. Project sites use /repo-name/.
  */
 import { spawn } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -51,6 +51,7 @@ rmSync(outDir, { recursive: true, force: true });
 const env = {
   ...process.env,
   GITHUB_PAGES: "1",
+  VITE_GITHUB_PAGES: "1",
   BASE_PATH: base,
 };
 
@@ -67,4 +68,13 @@ mkdirSync(outDir, { recursive: true });
 cpSync(site, outDir, { recursive: true });
 cpSync(join(outDir, "index.html"), join(outDir, "404.html"));
 writeFileSync(join(outDir, ".nojekyll"), "");
+// Project-site sitemap and crawler guidance; no production URLs for preview builds.
+if (base === "/Hexwell/") {
+  const url = "https://thenirajshah.github.io/Hexwell/";
+  const catalog = JSON.parse(readFileSync(join(root, "src/data/catalog.json"), "utf8"));
+  const urls = [url, ...catalog.parts.map(part => url + "part/" + encodeURIComponent(part.id))];
+  const entries = urls.map(loc => "<url><loc>" + loc + "</loc></url>").join("\n");
+  writeFileSync(join(outDir, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + entries + '</urlset>\n');
+  writeFileSync(join(outDir, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: " + url + "sitemap.xml\n");
+}
 console.log(`[pages] Site written to gh-pages (base ${base})`);

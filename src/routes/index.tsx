@@ -30,6 +30,7 @@ export const Route = createFileRoute("/")({
     pid: typeof search.pid === "string" ? search.pid : "",
     nom: typeof search.nom === "string" ? search.nom : "",
   }),
+  head: () => ({ links: [{ rel: "canonical", href: "https://thenirajshah.github.io/Hexwell/" }] }),
   component: Home,
 });
 
@@ -140,9 +141,9 @@ function Home() {
             </div>
           ) : (
             <div className="max-w-3xl">
-              <p className="text-sm font-medium text-primary">Standards, without the scavenger hunt</p>
+              <p className="text-xs font-semibold tracking-widest text-primary">ENGINEERING DIMENSION REFERENCE</p>
               <h1 className="mt-2 font-display text-4xl font-medium leading-tight tracking-tight">
-                Look up a fastener. Read the size. Get back to the bench.
+                Fastener Dimension Catalogue
               </h1>
               <p className="mt-3 max-w-xl text-muted-foreground">
                 {partsLabel()} across ISO, DIN, JIS, and ASTM. Pick a thread, see the wrench size, and copy the callout.
@@ -189,7 +190,7 @@ function Home() {
             </div>
           ) : null}
           <div className="mt-5 border-t border-border pt-4">
-            <h2 className="text-sm font-semibold tracking-wide text-spec-heading uppercase">Search by options</h2>
+            <h2 className="text-sm font-semibold tracking-wide text-spec-heading uppercase">01 / Select parameters</h2>
             <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <SearchSelect
                 label="Standard"
@@ -257,7 +258,7 @@ function Home() {
               );
             })}
           </div>
-          <div className="flex w-full min-w-0 gap-2 overflow-x-auto pb-1">
+          <div className="flex w-full min-w-0 flex-wrap gap-2 pb-1">
             <FilterChip on={!search.kind} onClick={() => setFilter({ kind: "" })} label="All" />
             {KINDS.map((kind) => (
               <FilterChip
@@ -302,7 +303,7 @@ function Home() {
                 >
                   <div className="flex items-start gap-3">
                     <span className="flex size-16 shrink-0 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                      <img src={publicUrl(`fastener/${part.photo}.png`)} alt="" className="size-14 object-contain" />
+                      <img src={publicUrl(`fastener/${part.photo}.png`)} alt="" width={56} height={56} loading="lazy" decoding="async" className="size-14 object-contain" />
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-primary">
@@ -312,7 +313,7 @@ function Home() {
                           <Bookmark className="ml-1 inline size-3.5 fill-current" aria-label="On your bench" />
                         ) : null}
                       </p>
-                      <h2 className="mt-1 font-medium leading-snug">{part.name}</h2>
+                      <h2 className="mt-1 font-semibold leading-snug">{part.name}</h2>
                       <p className="mt-1 truncate text-sm text-muted-foreground">{part.code}</p>
                     </div>
                   </div>

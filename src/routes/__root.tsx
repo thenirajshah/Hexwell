@@ -4,7 +4,7 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 import { publicUrl } from "@/lib/public-url";
 
-const APP_NAME = "Hexwell";
+const APP_NAME = "Hexwell | Fastener Dimension Catalogue";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -13,7 +13,11 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
       { name: "description", content: "Hexwell is a readable catalog of ISO, DIN, JIS, and ASTM bolts, nuts, washers, and pins." },
-      { name: "theme-color", content: "#f6f5f2" },
+      { property: "og:title", content: APP_NAME },
+      { property: "og:description", content: "Engineering reference for ISO, DIN, JIS and ASTM fastener dimensions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "theme-color", content: "#f1f4f7" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: publicUrl("favicon.svg") },
