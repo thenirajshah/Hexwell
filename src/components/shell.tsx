@@ -23,13 +23,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
           <Link to="/" search={{ q: "", std: "", kind: "", pid: "", nom: "" }} className="flex min-w-0 items-center gap-2 text-foreground">
             <Mark />
-            <span className="truncate font-display text-lg font-medium tracking-tight">Hexwell</span>
+            <span className="truncate font-display text-lg font-bold tracking-tight">Hexwell</span>
           </Link>
-          <nav className="flex items-center gap-1 text-sm">
+          <nav aria-label="Main navigation" className="flex shrink-0 items-center gap-1 text-sm">
             <Link
               to="/"
               search={{ q: "", std: "", kind: "", pid: "", nom: "" }}
-              className="motion-colors inline-flex h-11 items-center rounded-lg px-3 hover:bg-muted"
+              className="motion-colors inline-flex h-11 items-center rounded-md px-2 sm:px-3 hover:bg-muted"
               activeOptions={{ exact: true, includeSearch: false }}
               activeProps={{ className: "bg-muted" }}
             >
@@ -37,7 +37,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </Link>
             <Link
               to="/bench"
-              className="motion-colors inline-flex h-11 items-center gap-2 rounded-lg px-3 hover:bg-muted"
+              className="motion-colors inline-flex h-11 items-center gap-2 rounded-md px-2 sm:px-3 hover:bg-muted"
               activeProps={{ className: "bg-muted" }}
             >
               <Bookmark className="size-4" aria-hidden="true" />
