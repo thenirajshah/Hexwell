@@ -67,4 +67,10 @@ mkdirSync(outDir, { recursive: true });
 cpSync(site, outDir, { recursive: true });
 cpSync(join(outDir, "index.html"), join(outDir, "404.html"));
 writeFileSync(join(outDir, ".nojekyll"), "");
+// Project-site sitemap and crawler guidance; no production URLs for preview builds.
+if (base === "/Hexwell/") {
+  const url = "https://thenirajshah.github.io/Hexwell/";
+  writeFileSync(join(outDir, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>' + url + '</loc></url></urlset>\n');
+  writeFileSync(join(outDir, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: " + url + "sitemap.xml\n");
+}
 console.log(`[pages] Site written to gh-pages (base ${base})`);
