@@ -51,6 +51,7 @@ rmSync(outDir, { recursive: true, force: true });
 const env = {
   ...process.env,
   GITHUB_PAGES: "1",
+  VITE_GITHUB_PAGES: "1",
   BASE_PATH: base,
 };
 
